@@ -8,7 +8,7 @@ class Controller_Webclient extends Controller {
 		$output = $navigator->url('http://www.google.es/search')
 			->get(array('q'=>'uno'))
 			->exec();
-		$this->request->response = Kohana::debug($output->response);
+		$this->request->response = Kohana::debug($output['response']);
 	}
 
 } // End Welcome

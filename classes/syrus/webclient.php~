@@ -98,11 +98,15 @@ class Syrus_Webclient {
 		$this->CURLOPT_URL = $this->buildUrl();
 		$options = ($this->options+$this->default_options_main);
 		curl_setopt_array($this->curl,$options);
+		$content = curl_exec($this->curl);
+		$header = curl_getinfo($this->curl);
+		$error = curl_error($this->curl);
+		$errno = curl_errno($this->curl);
 		$data = new stdClass;
-		$data->response = curl_exec($this->curl);
-		$data->header = curl_getinfo($this->curl);
-		$data->error = curl_error($this->curl);
-		$data->errno = curl_errno($this->curl);
+		$data->response = $content;
+		$data->header = $header;
+		$data->error = $error;
+		$data->errno = $errno;
 		return $data;
 	}
 	public function close () {
