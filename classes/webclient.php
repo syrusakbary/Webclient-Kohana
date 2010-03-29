@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Webclient extends Syrus_Webclient {
+class Webclient extends Webclient_Core {
 }
 /*Example
 var_dump(
