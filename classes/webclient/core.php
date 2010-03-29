@@ -84,9 +84,12 @@ class Webclient_Core {
 			$this->CURLOPT_POSTFIELDS = $this->fields($data);
 		}
 	}
-	public function _cookies ($file=false) {
+	public function _cookieFile ($file=false) {
 		$this->CURLOPT_COOKIEJAR = $file;
 		$this->CURLOPT_COOKIEFILE = $file;
+	}
+	public function _cookie ($cookie) {
+		$this->CURLOPT_COOKIE = $cookie;
 	}
 	public function _get ($data=NULL) {
 		$this->get += ($data);
@@ -98,11 +101,12 @@ class Webclient_Core {
 	public function execute () {
 		$this->CURLOPT_RETURNTRANSFER = true;
 		$this->CURLOPT_URL = $this->buildUrl();
+		$this->CURLINFO_HEADER_OUT = 1;
 		$options = ($this->options+$this->default_options_main);
 		$this->custom($options);
 		$data = new stdClass;
 		$data->response = curl_exec($this->curl);
-		$data->header = curl_getinfo($this->curl);
+		$data->info = curl_getinfo($this->curl);
 		$data->error = curl_error($this->curl);
 		$data->errno = curl_errno($this->curl);
 		return $data;
